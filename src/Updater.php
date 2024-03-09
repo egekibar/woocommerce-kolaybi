@@ -13,9 +13,9 @@ class Updater {
 
 		$this->plugin_slug = plugin_basename( dirname(__DIR__, 1) );
 		$this->plugin_basename = "woocommerce-kolaybi/woocommerce-kolaybi.php";
-		$this->version = '1.0';
+		$this->version = '1.0.1';
 		$this->cache_key = 'update_kolaybi';
-		$this->cache_allowed = false;
+		$this->cache_allowed = true;
 
 		add_filter( 'plugins_api', array( $this, 'info' ), 20, 3 );
 		add_filter( 'site_transient_update_plugins', array( $this, 'update' ) );
@@ -80,7 +80,7 @@ class Updater {
 			return false;
 		}
 
-		$res = new stdClass();
+		$res = new \stdClass();
 
 		$res->name = $remote->name;
 		$res->slug = $remote->slug;
