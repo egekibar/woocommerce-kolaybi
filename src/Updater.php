@@ -12,9 +12,9 @@ class Updater {
 	public function __construct() {
 
 		$this->plugin_slug = plugin_basename( dirname(__DIR__, 1) );
-		$this->plugin_basename = "woocommerce-kolaybi/woocommerce-kolaybi.php";
-		$this->version = '1.0.1';
-		$this->cache_key = 'update_kolaybi';
+		$this->plugin_basename = "woocommerce-kolaybi-stable/woocommerce-kolaybi.php";
+		$this->version = '1.1';
+		$this->cache_key = 'updater_kolaybi';
 		$this->cache_allowed = true;
 
 		add_filter( 'plugins_api', array( $this, 'info' ), 20, 3 );
