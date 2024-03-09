@@ -4,7 +4,7 @@
 	"author" : "<a href='https://kibar.dev'>Baki Ege Kibar</a>",
 	"author_profile" : "https://github.com/egekibar",
 	"version" : "1.0.1",
-	"download_url" : "https://api.github.com/repos/egekibar/woocommerce-kolaybi/zipball/Beta",
+	"download_url" : "https://api.github.com/repos/egekibar/woocommerce-kolaybi/zipball/Stable",
 	"requires" : "3.0",
 	"tested" : "5.8",
 	"requires_php" : "7.4",
