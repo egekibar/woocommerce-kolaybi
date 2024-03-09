@@ -17,10 +17,19 @@ class Updater {
 		$this->cache_key = 'updater_kolaybi';
 		$this->cache_allowed = true;
 
-		add_filter( 'plugins_api', array( $this, 'info' ), 20, 3 );
-		add_filter( 'site_transient_update_plugins', array( $this, 'update' ) );
-		add_action( 'upgrader_process_complete', array( $this, 'purge' ), 10, 2 );
-
+		if ($this->plugin_slug !== "woocommerce-kolaybi-stable"){
+			add_action('admin_notices', function () {
+				?>
+				<div class="notice notice-error is-dismissible">
+					<p>Kolaybi entegrasyon eklentisinin klasör ismini "<b><?= $this->plugin_slug ?></b>" yapmazsanız güncelleme alamayacaksınız!</p>
+				</div>
+				<?php
+			});
+		}else{
+			add_filter( 'plugins_api', array( $this, 'info' ), 20, 3 );
+			add_filter( 'site_transient_update_plugins', array( $this, 'update' ) );
+			add_action( 'upgrader_process_complete', array( $this, 'purge' ), 10, 2 );
+		}
 	}
 
 	public function request(){
