@@ -30,7 +30,7 @@ class Updater {
 		if( false === $remote || ! $this->cache_allowed ) {
 
 			$remote = wp_remote_get(
-				'https://rudrastyh.com/wp-content/uploads/updater/info.json',
+				'https://raw.githubusercontent.com/egekibar/woocommerce-kolaybi/main/info.json',
 				array(
 					'timeout' => 10,
 					'headers' => array(
