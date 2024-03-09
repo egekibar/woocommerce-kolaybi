@@ -1,6 +1,6 @@
 <?php global $view_modal; ?>
 <head>
-	<link rel="stylesheet" href="/wp-content/plugins/woocommerce-kolaybi/public/css/bundle.css?v=1">
+	<link rel="stylesheet" href="/wp-content/plugins/woocommerce-kolaybi-stable/public/css/bundle.css?v=1">
 </head>
 <body class="bg-secondary d-grid align-items-center justify-content-center position-relative" data-bs-theme="light">
 <h1 class="fw-semibold text-gray-800 text-center lh-lg">
@@ -19,7 +19,7 @@
 		<div id="response"></div>
 	</div>
 </div>
-<script src="/wp-content/plugins/woocommerce-kolaybi/public/js/bundle.js"></script>
+<script src="/wp-content/plugins/woocommerce-kolaybi-stable/public/js/bundle.js"></script>
 <script>
     $('button').click(function (){
         $(this).addClass("disabled")
