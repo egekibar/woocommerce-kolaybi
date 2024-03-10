@@ -6,11 +6,10 @@ if (isset($_GET['page']) && isset($_GET['action']) && $_GET['action'] === 'edit'
 		$order = wc_get_order($_GET['id']);
 		$uuid = $order->get_meta("e_invoice_uuid", true);
 		$doc = $order->get_meta("document_id", true);
-        if ($doc && empty($meta)): ?>
-		<script>
+        ?> <script>
 			document.addEventListener('DOMContentLoaded', function() {
                 jQuery(document).ready(function($) {
-                    <?php if (!$uuid): ?>
+                    <?php if ($doc && !$uuid): ?>
                         $('<li>').addClass('wide').html(
                             $('<a>').attr('href', 'admin.php?action=kolaybi_convert_e_invoice&id=<?= $_GET['id'] ?>&TB_iframe=true')
                             .addClass('button thickbox')
@@ -21,24 +20,28 @@ if (isset($_GET['page']) && isset($_GET['action']) && $_GET['action'] === 'edit'
                         $(document).on('tb_unload', function() {
                             location.reload()
                         });
-                    <?php else: ?>
+                    <?php elseif($doc && $uuid): ?>
                         $('<li>').addClass('wide').html(
                             $('<a>').attr('href', '/?e_invoice_uuid=<?= $uuid ?>').attr('target', '_blank')
                             .addClass('button')
                             .css({ width: "100%" })
                             .text("E-fatura'yı Görüntüle")
                         ).insertAfter('#actions')
+                    <?php else: ?>
+                        $('<li>').addClass('wide').html(
+                            $('<a>').attr('href', 'admin.php?action=kolaybi_create_invoice&id=<?= $_GET['id'] ?>&TB_iframe=true').attr('target', '_blank')
+                                .addClass('button thickbox')
+                                .css({ width: "100%" })
+                                .text("Fatura Oluştur")
+                        ).insertAfter('#actions')
 
-                        //$('<li>').addClass('wide').html($('<a>').attr('href', 'admin.php?action=kolaybi_view_e_invoice&id=<?php //= $_GET['id'] ?>//&TB_iframe=true&width=900&height=800')
-                        //    .addClass('button thickbox')
-                        //    .css({ width: "100%" })
-                        //    .text("E-fatura'yı Görüntüle"))
-                        //    .insertAfter('#actions')
+                        $(document).on('tb_unload', function() {
+                            location.reload()
+                        });
                     <?php endif; ?>
                 });
 			});
-		</script>
-		<?php endif;
+		</script> <?php
 	});
 }
 
@@ -53,8 +56,8 @@ add_action("admin_action_kolaybi_convert_e_invoice", function (){
 			    "document_id" => $document_id
 		    ]);
 		    if ($resp->uuid){
-			    $order->add_meta_data("e_invoice_uuid", $resp->uuid);
-			    $order->add_meta_data("e_invoice_no", $resp->no);
+			    $order->update_meta_data("e_invoice_uuid", $resp->uuid);
+			    $order->update_meta_data("e_invoice_no", $resp->no);
 			    $order->save();
 		    }
 		    dd($document_id, $resp);
@@ -80,13 +83,25 @@ add_action("admin_action_kolaybi_convert_e_invoice", function (){
 //	}
 //});
 
-add_action('woocommerce_order_status_changed', function ($order_id, $old_status, $new_status){
-	if ($new_status == "completed") do_action('kolaybi_create_invoice', $order_id);
-}, 10, 3);
+//add_action('woocommerce_order_status_changed', function ($order_id, $old_status, $new_status){
+//	if ($new_status == "completed") do_action('kolaybi_create_invoice', $order_id);
+//}, 10, 3);
+
+add_action("admin_action_kolaybi_create_invoice", function (){
+    if ($_GET['start']){
+	    echo do_action("kolaybi_create_invoice", $_GET['id']);
+        die;
+    }
+	view("modal", [
+		"title" => "Fatura Kolaybi'ye aktarılacak.",
+		"ajax_action" => "create_invoice&id=".$_GET['id']
+	]);
+});
 
 add_action("kolaybi_create_invoice", function ($order_id){
 	\Plugin\Kolaybi\Authorization::login();
 	$order = wc_get_order($order_id);
+
 	$associate_id = get_user_meta($order->get_user_id(), 'associate_id', true);
 	$associate = \Plugin\Kolaybi\Associate::detail( $associate_id );
 
@@ -115,7 +130,7 @@ add_action("kolaybi_create_invoice", function ($order_id){
 
 	$resp = \Plugin\Kolaybi\Order::create_invoice($body);
 
-	$order->add_meta_data("document_id", $resp->document_id);
+	$order->update_meta_data("document_id", $resp->document_id);
 	$order->save();
 });
 

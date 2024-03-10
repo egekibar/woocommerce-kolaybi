@@ -16,6 +16,7 @@ add_action("admin_action_kolaybi_sync_products", function (){
 				$product->set_tax_status('taxable');
 				$product->set_manage_stock(true);
 				$product->set_stock_quantity($data->total_stock_quantity);
+                $product->set_backorders("yes");
 
 				$product_id = $product->save();
 			} else {
@@ -28,6 +29,7 @@ add_action("admin_action_kolaybi_sync_products", function (){
 				$product->set_tax_status('taxable');
 				$product->set_manage_stock(true);
 				$product->set_stock_quantity($data->total_stock_quantity);
+				$product->set_backorders("yes");
 
 				$product_id = $product->save();
 			}

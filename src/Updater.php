@@ -13,7 +13,7 @@ class Updater {
 
 		$this->plugin_slug = plugin_basename( dirname(__DIR__, 1) );
 		$this->plugin_basename = "woocommerce-kolaybi-stable/woocommerce-kolaybi.php";
-		$this->version = '1.1';
+		$this->version = '1.1.1';
 		$this->cache_key = 'updater_kolaybi';
 		$this->cache_allowed = true;
 
