@@ -4,7 +4,7 @@
 Plugin Name: Woocommerce Kolaybi
 Plugin URI: https://github.com/egekibar/woocommerce-kolaybi
 Description: Woocommerce kolaybi entegrasyonu
-Version: 1.1.1
+Version: 1.0.4
 Author: egekibar
 Author URI: https://kibar.dev
 License: A "Slug" license name e.g. GPL2
