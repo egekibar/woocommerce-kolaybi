@@ -12,12 +12,12 @@ class Updater {
 	public function __construct() {
 
 		$this->plugin_slug = plugin_basename( dirname(__DIR__, 1) );
-		$this->plugin_basename = "woocommerce-kolaybi-stable/woocommerce-kolaybi.php";
+		$this->plugin_basename = $this->plugin_slug."/woocommerce-kolaybi.php";
 		$this->version = '1.0.4';
 		$this->cache_key = 'updater_kolaybi';
 		$this->cache_allowed = true;
 
-		if ($this->plugin_slug !== "woocommerce-kolaybi-stable"){
+		if ($this->plugin_slug !== "woocommerce-kolaybi-latest"){
 			add_action('admin_notices', function () {
 				?>
 				<div class="notice notice-error is-dismissible">
