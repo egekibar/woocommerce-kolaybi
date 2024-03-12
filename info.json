@@ -4,7 +4,7 @@
 	"author" : "<a href='https://kibar.dev'>Baki Ege Kibar</a>",
 	"author_profile" : "https://github.com/egekibar",
 	"version" : "1.0.4",
-	"download_url" : "https://github.com/egekibar/woocommerce-kolaybi/archive/refs/tags/stable.zip",
+	"download_url" : "https://github.com/egekibar/woocommerce-kolaybi/archive/refs/tags/latest.zip",
 	"requires" : "3.0",
 	"tested" : "5.8",
 	"requires_php" : "7.4",
